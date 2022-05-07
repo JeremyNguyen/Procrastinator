@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Procrastinator</string>
-    <string name="labelButtonDebug">Debug</string>
+    <string name="labelButtonDebug1">Debug1</string>
+    <string name="labelButtonDebug2">Debug2</string>
 </resources>
