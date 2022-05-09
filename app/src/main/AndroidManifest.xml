@@ -3,8 +3,6 @@
     package="com.example.procrastinator">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -13,27 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Procrastinator" >
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true" >
-            <!--
-            <intent-filter>
-                <action android:name="com.myapp.MyService" />
-            </intent-filter>
-            -->
-        </service>
 
         <receiver
-            android:name=".StartMyServiceAtBootReceiver"
+            android:name=".BootReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
         <activity
