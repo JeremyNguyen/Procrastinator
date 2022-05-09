@@ -1,4 +1,4 @@
-package com.example.procrastinator;
+package com.example.procrastinator.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,12 +7,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.procrastinator.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class MainActivity extends AppCompatActivity {
+
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = FirebaseFirestore.getInstance();
 
         Button button1 = findViewById(R.id.button_debug1);
         button1.setOnClickListener(this::debug1);
@@ -22,11 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void debug1(View view) {
         Toast.makeText(this, "debug1", Toast.LENGTH_SHORT).show();
-        WatchDogWorker.enqueueSelf(getApplicationContext());
     }
 
     public void debug2(View view) {
         Toast.makeText(this, "debug2", Toast.LENGTH_SHORT).show();
-        NotificationUtil.sendNotification("title", "message", getApplicationContext());
     }
 }

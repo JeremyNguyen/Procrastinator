@@ -1,4 +1,4 @@
-package com.example.procrastinator;
+package com.example.procrastinator.worker;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,11 +10,13 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.procrastinator.util.NotificationUtil;
+
 import java.util.concurrent.TimeUnit;
 
 public class WatchDogWorker extends Worker {
 
-    private static final String uniqueWorkName = "com.example.procrastinator.WatchDogWorker";
+    private static final String uniqueWorkName = "com.example.procrastinator.worker.WatchDogWorker";
 
     public WatchDogWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
         super(appContext, workerParams);
@@ -27,7 +29,6 @@ public class WatchDogWorker extends Worker {
                 .build();
         WorkManager workManager = WorkManager.getInstance(context);
         workManager.enqueueUniquePeriodicWork(uniqueWorkName, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
-//        WorkManager.getInstance(context).enqueueUniquePeriodicWork( uniqueWorkName, ExistingPeriodicWorkPolicy.KEEP, getOwnWorkRequest() );
     }
 
     @NonNull

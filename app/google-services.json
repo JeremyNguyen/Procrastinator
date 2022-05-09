@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "473951435716",
+    "project_id": "procrastinator-865be",
+    "storage_bucket": "procrastinator-865be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473951435716:android:9e90e03449bfe209e6c291",
+        "android_client_info": {
+          "package_name": "com.example.procrastinator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "473951435716-6spm9h1m0i9gskn9mf4ilcel9c6v7s96.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8oIA1uCw93-jyA1VTKfcmvU8qyXbxe6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "473951435716-6spm9h1m0i9gskn9mf4ilcel9c6v7s96.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

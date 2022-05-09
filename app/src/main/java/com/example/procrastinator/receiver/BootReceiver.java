@@ -1,10 +1,12 @@
-package com.example.procrastinator;
+package com.example.procrastinator.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.procrastinator.worker.WatchDogWorker;
 
 public class BootReceiver extends BroadcastReceiver {
 
