@@ -5,7 +5,9 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.time.LocalDateTime;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.Map;
 
 public class Task implements Parcelable {
 
@@ -14,7 +16,7 @@ public class Task implements Parcelable {
     private boolean shared;
     private String title;
     private String content;
-    private LocalDateTime remindWhen;
+    private String remindWhen;
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
         @Override
@@ -68,11 +70,11 @@ public class Task implements Parcelable {
         this.content = content;
     }
 
-    public LocalDateTime getRemindWhen() {
+    public String getRemindWhen() {
         return remindWhen;
     }
 
-    public void setRemindWhen(LocalDateTime remindWhen) {
+    public void setRemindWhen(String remindWhen) {
         this.remindWhen = remindWhen;
     }
 
@@ -81,7 +83,8 @@ public class Task implements Parcelable {
         return 0;
     }
 
-    public Task() {}
+    public Task() {
+    }
 
     public Task(Parcel in) {
         this.id = in.readString();
@@ -89,7 +92,18 @@ public class Task implements Parcelable {
         this.shared = in.readInt() == 1;
         this.title = in.readString();
         this.content = in.readString();
-        this.remindWhen = (LocalDateTime) in.readSerializable();
+        this.remindWhen = in.readString();
+    }
+
+    public Task(QueryDocumentSnapshot document) {
+        this.id = document.getId();
+        Map<String, Object> data = document.getData();
+        this.author = (String) data.get("author");
+        this.shared = (boolean) data.get("shared");
+        this.title = (String) data.get("title");
+        this.content = (String) data.get("content");
+        this.remindWhen = (String) data.get("remindWhen");
+
     }
 
     @Override
@@ -99,7 +113,7 @@ public class Task implements Parcelable {
         dest.writeInt(this.shared ? 1 : 0);
         dest.writeString(this.title);
         dest.writeString(this.content);
-        dest.writeSerializable(this.remindWhen);
+        dest.writeString(this.remindWhen);
     }
 
     @NonNull
