@@ -14,7 +14,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, "onReceive", Toast.LENGTH_SHORT).show();
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            Log.e("BootReceiver", "onReceive");
+            Log.d("BootReceiver", "onReceive");
             WatchDogWorker.enqueueSelf(context);
         }
     }

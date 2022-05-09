@@ -1,13 +1,40 @@
 package com.example.procrastinator.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.time.LocalDateTime;
 
-public class Task {
+public class Task implements Parcelable {
 
+    private String id;
     private String author;
     private boolean shared;
-    private String subject;
+    private String title;
+    private String content;
     private LocalDateTime remindWhen;
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getAuthor() {
         return author;
@@ -25,12 +52,20 @@ public class Task {
         this.shared = shared;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public LocalDateTime getRemindWhen() {
@@ -39,5 +74,44 @@ public class Task {
 
     public void setRemindWhen(LocalDateTime remindWhen) {
         this.remindWhen = remindWhen;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public Task() {}
+
+    public Task(Parcel in) {
+        this.id = in.readString();
+        this.author = in.readString();
+        this.shared = in.readInt() == 1;
+        this.title = in.readString();
+        this.content = in.readString();
+        this.remindWhen = (LocalDateTime) in.readSerializable();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.author);
+        dest.writeInt(this.shared ? 1 : 0);
+        dest.writeString(this.title);
+        dest.writeString(this.content);
+        dest.writeSerializable(this.remindWhen);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id='" + id + '\'' +
+                ", author='" + author + '\'' +
+                ", shared=" + shared +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", remindWhen=" + remindWhen +
+                '}';
     }
 }

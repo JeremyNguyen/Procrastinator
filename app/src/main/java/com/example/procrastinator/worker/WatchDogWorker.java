@@ -10,8 +10,6 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.procrastinator.util.NotificationUtil;
-
 import java.util.concurrent.TimeUnit;
 
 public class WatchDogWorker extends Worker {
@@ -23,19 +21,18 @@ public class WatchDogWorker extends Worker {
     }
 
     public static void enqueueSelf(Context context) {
-        Log.e("WatchDogWorker", "enqueueSelf");
+        Log.d("WatchDogWorker", "enqueueSelf");
         PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(
                 WatchDogWorker.class, 15, TimeUnit.MINUTES)
                 .build();
         WorkManager workManager = WorkManager.getInstance(context);
-        workManager.enqueueUniquePeriodicWork(uniqueWorkName, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
+        workManager.enqueueUniquePeriodicWork(uniqueWorkName, ExistingPeriodicWorkPolicy.REPLACE, periodicWorkRequest);
     }
 
     @NonNull
     @Override
     public Result doWork() {
-        Log.e("WatchDogWorker", "periodicWork");
-        NotificationUtil.sendNotification("title", "message", getApplicationContext());
+        Log.d("WatchDogWorker", "periodicWork");
         return Result.success();
     }
 }

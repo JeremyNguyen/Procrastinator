@@ -8,7 +8,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.procrastinator.R;
+import com.example.procrastinator.model.Task;
+import com.example.procrastinator.util.NotificationUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void debug1(View view) {
         Toast.makeText(this, "debug1", Toast.LENGTH_SHORT).show();
+        Task task = new Task();
+        task.setId("id");
+        task.setContent("content");
+        task.setTitle("title");
+        task.setAuthor("author");
+        task.setRemindWhen(LocalDateTime.now());
+        task.setShared(true);
+        NotificationUtil.sendReminderNotification(task, getApplicationContext());
     }
 
     public void debug2(View view) {
