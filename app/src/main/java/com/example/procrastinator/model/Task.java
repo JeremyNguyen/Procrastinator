@@ -17,6 +17,7 @@ public class Task implements Parcelable {
     private String title;
     private String content;
     private String remindWhen;
+    private String category;
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
         @Override
@@ -78,6 +79,14 @@ public class Task implements Parcelable {
         this.remindWhen = remindWhen;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -93,6 +102,7 @@ public class Task implements Parcelable {
         this.title = in.readString();
         this.content = in.readString();
         this.remindWhen = in.readString();
+        this.category = in.readString();
     }
 
     public Task(QueryDocumentSnapshot document) {
@@ -103,7 +113,7 @@ public class Task implements Parcelable {
         this.title = (String) data.get("title");
         this.content = (String) data.get("content");
         this.remindWhen = (String) data.get("remindWhen");
-
+        this.category = (String) data.get("category");
     }
 
     @Override
@@ -114,6 +124,7 @@ public class Task implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.content);
         dest.writeString(this.remindWhen);
+        dest.writeString(this.category);
     }
 
     @NonNull
@@ -125,7 +136,8 @@ public class Task implements Parcelable {
                 ", shared=" + shared +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", remindWhen=" + remindWhen +
+                ", remindWhen='" + remindWhen + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }
