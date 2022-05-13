@@ -13,11 +13,15 @@ import com.example.procrastinator.activity.MainActivity;
 import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TasksAdapter extends ArrayAdapter<Task> {
-    public TasksAdapter(Context context, ArrayList<Task> tasks) {
+
+    private List<Task> tasks;
+
+    public TasksAdapter(Context context, List<Task> tasks) {
         super(context, 0, tasks);
+        this.tasks = tasks;
     }
 
     @Override
@@ -36,6 +40,14 @@ public class TasksAdapter extends ArrayAdapter<Task> {
             context.startActivity(intent);
         });
         return convertView;
+    }
 
+    @Override
+    public int getCount() {
+        return tasks.size();
+    }
+
+    public void setItems(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

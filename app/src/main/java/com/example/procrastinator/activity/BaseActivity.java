@@ -53,6 +53,7 @@ public class BaseActivity extends AppCompatActivity {
         task.setContent("content");
         task.setTitle("title");
         task.setAuthor("author");
+        task.setCategory("Shopping");
         task.setRemindWhen(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
         task.setShared(true);
         DatabaseUtil.addTask(task, db);

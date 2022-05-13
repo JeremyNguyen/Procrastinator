@@ -4,16 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.procrastinator.R;
 import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
 
+import java.util.Optional;
+
 public class MainActivity extends BaseActivity {
 
-    String mode = AppConstant.MODE_EDIT;
-    Task task = new Task();
+    String mode;
+    Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +26,12 @@ public class MainActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        init();
+    }
+
+    private void init(){
         Intent intent = getIntent();
-        if (intent != null) {
-            task = intent.getParcelableExtra("task");
-            mode = intent.getParcelableExtra("mode");
-        }
+        task = (Task) Optional.ofNullable(intent.getParcelableExtra("task")).orElse(new Task());
+        mode = (String) Optional.ofNullable(intent.getParcelableExtra("mode")).orElse(AppConstant.MODE_EDIT);
     }
 }
