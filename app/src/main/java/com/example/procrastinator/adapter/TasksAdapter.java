@@ -35,8 +35,8 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         textView.setText(task.getTitle());
         textView.setOnClickListener(v -> {
             Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra("task", task);
-            intent.putExtra("mode", AppConstant.MODE_EDIT);
+            intent.putExtra(AppConstant.EXTRA_TASK, task);
+            intent.putExtra(AppConstant.EXTRA_MODE, AppConstant.MODE_EDIT);
             context.startActivity(intent);
         });
         return convertView;

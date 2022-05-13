@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
 
     private void init(){
         Intent intent = getIntent();
-        task = (Task) Optional.ofNullable(intent.getParcelableExtra("task")).orElse(new Task());
-        mode = (String) Optional.ofNullable(intent.getParcelableExtra("mode")).orElse(AppConstant.MODE_EDIT);
+        task = (Task) Optional.ofNullable(intent.getParcelableExtra(AppConstant.EXTRA_TASK)).orElse(new Task());
+        mode = (String) Optional.ofNullable(intent.getParcelableExtra(AppConstant.EXTRA_MODE)).orElse(AppConstant.MODE_EDIT);
     }
 }

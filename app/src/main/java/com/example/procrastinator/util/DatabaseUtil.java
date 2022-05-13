@@ -14,15 +14,17 @@ import java.util.Objects;
 
 public class DatabaseUtil {
 
+    private static final String COLLECTION_TASKS = "tasks";
+
     public static void addTask(Task task, FirebaseFirestore db) {
-        db.collection("tasks")
+        db.collection(COLLECTION_TASKS)
                 .add(task)
                 .addOnSuccessListener(documentReference -> Log.d("DatabaseUtil", "Task added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w("DatabaseUtil", "Error adding document", e));
     }
 
     public static void getTasksUpdateAdapter(List<Task> tasks, TasksAdapter tasksAdapter, FirebaseFirestore db) {
-        db.collection("tasks").get()
+        db.collection(COLLECTION_TASKS).get()
                 .addOnCompleteListener(task -> {
                     populateTasks(tasks, task);
                     tasksAdapter.notifyDataSetChanged();
@@ -30,7 +32,7 @@ public class DatabaseUtil {
     }
 
     public static void getTasksUpdateText(List<Task> tasks, EditText editText, FirebaseFirestore db) {
-        db.collection("tasks").get()
+        db.collection(COLLECTION_TASKS).get()
                 .addOnCompleteListener(task -> {
                     populateTasks(tasks, task);
                     editText.setText(tasks.toString());

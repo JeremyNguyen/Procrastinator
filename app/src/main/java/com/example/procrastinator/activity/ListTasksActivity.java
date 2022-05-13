@@ -9,6 +9,7 @@ import android.widget.Spinner;
 
 import com.example.procrastinator.R;
 import com.example.procrastinator.adapter.TasksAdapter;
+import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
 import com.example.procrastinator.util.DatabaseUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,7 +23,7 @@ public class ListTasksActivity extends BaseActivity implements AdapterView.OnIte
     FirebaseFirestore db;
     TasksAdapter tasksAdapter;
     private final List<Task> tasks = new ArrayList<>();
-    String[] categories = {"Activities", "Shopping"};
+    private final String [] categories = AppConstant.CATEGORIES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

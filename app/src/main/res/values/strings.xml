@@ -4,4 +4,7 @@
     <string name="labelButtonDebug2">Debug2</string>
     <string name="labelButtonListTasks">Tasks list</string>
     <string name="menuItemExport">Export</string>
+    <string name="menuItemSetUser">Configure user</string>
+    <string name="dialogSetUserTitle">Set user name</string>
+    <string name="dialogSetUserInput">Jeremy or Noemie</string>
 </resources>
