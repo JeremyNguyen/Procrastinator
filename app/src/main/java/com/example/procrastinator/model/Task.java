@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.gson.Gson;
 
 import java.util.Map;
 
@@ -130,14 +131,7 @@ public class Task implements Parcelable {
     @NonNull
     @Override
     public String toString() {
-        return "Task{" +
-                "id='" + id + '\'' +
-                ", author='" + author + '\'' +
-                ", shared=" + shared +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", remindWhen='" + remindWhen + '\'' +
-                ", category='" + category + '\'' +
-                '}';
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

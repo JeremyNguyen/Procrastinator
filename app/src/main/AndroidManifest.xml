@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Procrastinator">
         <activity
+            android:name=".activity.BaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ExportActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ListTasksActivity"
             android:exported="false" />
 
