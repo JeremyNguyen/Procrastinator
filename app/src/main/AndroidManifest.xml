@@ -14,9 +14,6 @@
         <activity
             android:name=".activity.ListTasksActivity"
             android:exported="false" />
-        <activity
-            android:name=".activity.ViewTaskActivity"
-            android:exported="false" />
 
         <receiver
             android:name=".receiver.BootReceiver"

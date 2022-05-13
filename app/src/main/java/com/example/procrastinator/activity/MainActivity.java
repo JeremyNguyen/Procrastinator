@@ -2,7 +2,8 @@ package com.example.procrastinator.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -27,19 +28,31 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        Button button1 = findViewById(R.id.button_debug1);
-        Button button2 = findViewById(R.id.button_debug2);
         Button buttonListTask = findViewById(R.id.button_list_tasks);
-
-        button1.setOnClickListener(this::debug1);
-        button2.setOnClickListener(this::debug2);
         buttonListTask.setOnClickListener(v -> {
             Intent intent = new Intent(this, ListTasksActivity.class);
             startActivity(intent);
         });
     }
 
-    public void debug1(View view) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.debug1:
+                debug1();
+                return true;
+            case R.id.debug2:
+                debug2();
+                return true;
+        }
+        return (super.onOptionsItemSelected(item));
+    }
+
+    public void debug1() {
         Toast.makeText(this, "debug1", Toast.LENGTH_SHORT).show();
         Task task = new Task();
         task.setContent("content");
@@ -50,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseUtil.addTask(task, db);
     }
 
-    public void debug2(View view) {
+    public void debug2() {
         Toast.makeText(this, "debug2", Toast.LENGTH_SHORT).show();
     }
 }

@@ -9,7 +9,7 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 
 import com.example.procrastinator.R;
-import com.example.procrastinator.activity.ViewTaskActivity;
+import com.example.procrastinator.activity.MainActivity;
 import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
 
@@ -34,7 +34,7 @@ public class NotificationUtil {
                 .setContentTitle(task.getTitle())
                 .setContentText(task.getContent())
                 .setAutoCancel(true);
-        Intent intent = new Intent(context, ViewTaskActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("task", task);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         builder.setContentIntent(pi);

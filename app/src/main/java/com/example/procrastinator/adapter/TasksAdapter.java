@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.procrastinator.R;
-import com.example.procrastinator.activity.ViewTaskActivity;
+import com.example.procrastinator.activity.MainActivity;
 import com.example.procrastinator.model.Task;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         TextView textView = convertView.findViewById(R.id.list_item_textView);
         textView.setText(task.getTitle());
         textView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ViewTaskActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
             intent.putExtra("task", task);
             context.startActivity(intent);
         });
