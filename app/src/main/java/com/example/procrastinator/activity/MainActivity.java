@@ -2,6 +2,7 @@ package com.example.procrastinator.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.procrastinator.R;
+import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
 import com.example.procrastinator.util.DatabaseUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,6 +22,9 @@ import java.time.format.DateTimeFormatter;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
+
+    String mode = AppConstant.MODE_EDIT;
+    Task task = new Task();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ListTasksActivity.class);
             startActivity(intent);
         });
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            Log.d("intent", intent.getPackage());
+            task = intent.getParcelableExtra("task");
+            mode = intent.getParcelableExtra("mode");
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,13 +53,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.debug1:
-                debug1();
-                return true;
-            case R.id.debug2:
-                debug2();
-                return true;
+        if (R.id.debug1 == item.getItemId()) {
+            debug1();
+        }
+        if (R.id.debug2 == item.getItemId()) {
+            debug2();
         }
         return (super.onOptionsItemSelected(item));
     }

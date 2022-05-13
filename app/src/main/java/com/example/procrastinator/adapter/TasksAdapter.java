@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.procrastinator.R;
 import com.example.procrastinator.activity.MainActivity;
+import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         textView.setOnClickListener(v -> {
             Intent intent = new Intent(context, MainActivity.class);
             intent.putExtra("task", task);
+            intent.putExtra("mode", AppConstant.MODE_EDIT);
             context.startActivity(intent);
         });
         return convertView;
