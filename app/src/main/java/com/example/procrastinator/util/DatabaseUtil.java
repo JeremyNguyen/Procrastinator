@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.EditText;
 
-import com.example.procrastinator.adapter.TasksAdapter;
 import com.example.procrastinator.constant.AppConstant;
+import com.example.procrastinator.listener.OnTaskSelectedListener;
 import com.example.procrastinator.model.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,11 +29,11 @@ public class DatabaseUtil {
                 .addOnFailureListener(e -> Log.w("DatabaseUtil", "Error adding document", e));
     }
 
-    public static void getTasksUpdateAdapter(List<Task> tasks, TasksAdapter tasksAdapter, FirebaseFirestore db) {
-        getQueryTasks(tasksAdapter.getContext(), db)
+    public static void getTasksUpdateAdapter(List<Task> tasks, OnTaskSelectedListener listener, FirebaseFirestore db) {
+        getQueryTasks(listener.getContext(), db)
                 .addOnCompleteListener(task -> {
                     populateTasks(tasks, task);
-                    tasksAdapter.notifyDataSetChanged();
+                    listener.onItemSelected(null, null, 0, 0);
                 });
     }
 
@@ -56,7 +56,6 @@ public class DatabaseUtil {
     private static void populateTasks(List<Task> tasks, com.google.android.gms.tasks.Task<List<Object>> task) {
         if (task.isSuccessful()) {
             for (Object o : Objects.requireNonNull(task.getResult())) {
-                Log.d("DatabaseUtil", o.toString());
                 QuerySnapshot query = (QuerySnapshot) o;
                 for (DocumentSnapshot document : query.getDocuments()) {
                     Task t = new Task(document);
