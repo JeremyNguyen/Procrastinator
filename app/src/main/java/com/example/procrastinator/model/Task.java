@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.gson.Gson;
 
 import java.util.Map;
@@ -106,7 +106,7 @@ public class Task implements Parcelable {
         this.category = in.readString();
     }
 
-    public Task(QueryDocumentSnapshot document) {
+    public Task(DocumentSnapshot document) {
         this.id = document.getId();
         Map<String, Object> data = document.getData();
         this.author = (String) data.get("author");
