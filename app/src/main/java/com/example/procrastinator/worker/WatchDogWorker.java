@@ -10,14 +10,19 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.procrastinator.util.DatabaseUtil;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.concurrent.TimeUnit;
 
 public class WatchDogWorker extends Worker {
 
     private static final String uniqueWorkName = "com.example.procrastinator.worker.WatchDogWorker";
+    FirebaseFirestore db;
 
     public WatchDogWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
         super(appContext, workerParams);
+        db = FirebaseFirestore.getInstance();
     }
 
     public static void enqueueSelf(Context context) {
@@ -32,7 +37,8 @@ public class WatchDogWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.d("WatchDogWorker", "periodicWork");
+        Log.d("WatchDogWorker", "doWork");
+        DatabaseUtil.getTasksSendReminders(getApplicationContext(), db);
         return Result.success();
     }
 }

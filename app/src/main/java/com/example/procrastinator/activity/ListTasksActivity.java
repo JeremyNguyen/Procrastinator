@@ -21,7 +21,7 @@ public class ListTasksActivity extends BaseActivity {
     FirebaseFirestore db;
     TasksAdapter tasksAdapter;
     private final List<Task> tasks = new ArrayList<>();
-    private final String [] categories = AppConstant.CATEGORIES;
+    private final String[] categories = AppConstant.CATEGORIES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

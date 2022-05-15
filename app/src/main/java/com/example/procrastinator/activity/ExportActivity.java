@@ -3,8 +3,6 @@ package com.example.procrastinator.activity;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.procrastinator.R;
 import com.example.procrastinator.model.Task;
 import com.example.procrastinator.util.DatabaseUtil;

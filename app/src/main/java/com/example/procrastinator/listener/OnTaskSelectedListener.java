@@ -26,11 +26,9 @@ public class OnTaskSelectedListener implements AdapterView.OnItemSelectedListene
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (tasks.size() > 0) {
-            List<Task> filteredTasks = tasks.stream().filter(task -> categories[position].equals(task.getCategory())).collect(Collectors.toList());
-            adapter.setItems(filteredTasks);
-            adapter.notifyDataSetChanged();
-        }
+        List<Task> filteredTasks = tasks.stream().filter(task -> categories[position].equals(task.getCategory())).collect(Collectors.toList());
+        adapter.setItems(filteredTasks);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

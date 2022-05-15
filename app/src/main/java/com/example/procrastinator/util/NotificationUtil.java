@@ -32,12 +32,11 @@ public class NotificationUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, AppConstant.CHANNEL_REMINDER)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(task.getTitle())
-                .setContentText(task.getContent())
                 .setAutoCancel(true);
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(AppConstant.EXTRA_TASK, task);
         intent.putExtra(AppConstant.EXTRA_MODE, AppConstant.MODE_REMIND);
-        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pi = PendingIntent.getActivity(context, task.getId().hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         builder.setContentIntent(pi);
         notificationManager.notify(task.getId().hashCode(), builder.build());
     }

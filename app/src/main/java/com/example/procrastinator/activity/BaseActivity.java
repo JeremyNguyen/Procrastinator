@@ -17,10 +17,8 @@ import com.example.procrastinator.R;
 import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
 import com.example.procrastinator.util.DatabaseUtil;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -83,14 +81,12 @@ public class BaseActivity extends AppCompatActivity {
         task.setTitle("title");
         task.setAuthor("author");
         task.setCategory("Shopping");
-        task.setRemindWhen(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
+        task.setRemindWhen(Timestamp.now());
         task.setShared(true);
         DatabaseUtil.addTask(task, db);
     }
 
     public void debug2() {
-        SharedPreferences settings = getSharedPreferences(AppConstant.PREFERENCES_NAME, 0);
-        String user = settings.getString(AppConstant.PREFERENCE_USER, "default");
-        Toast.makeText(this, user, Toast.LENGTH_SHORT).show();
+        DatabaseUtil.getTasksSendReminders(getApplicationContext(), db);
     }
 }

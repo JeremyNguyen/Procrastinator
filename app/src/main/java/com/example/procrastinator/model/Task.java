@@ -5,10 +5,12 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.gson.Gson;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class Task implements Parcelable {
 
@@ -17,7 +19,7 @@ public class Task implements Parcelable {
     private boolean shared;
     private String title;
     private String content;
-    private String remindWhen;
+    private Timestamp remindWhen;
     private String category;
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
@@ -72,11 +74,11 @@ public class Task implements Parcelable {
         this.content = content;
     }
 
-    public String getRemindWhen() {
+    public Timestamp getRemindWhen() {
         return remindWhen;
     }
 
-    public void setRemindWhen(String remindWhen) {
+    public void setRemindWhen(Timestamp remindWhen) {
         this.remindWhen = remindWhen;
     }
 
@@ -102,7 +104,7 @@ public class Task implements Parcelable {
         this.shared = in.readInt() == 1;
         this.title = in.readString();
         this.content = in.readString();
-        this.remindWhen = in.readString();
+        this.remindWhen = in.readParcelable(Timestamp.class.getClassLoader());
         this.category = in.readString();
     }
 
@@ -113,7 +115,7 @@ public class Task implements Parcelable {
         this.shared = (boolean) data.get("shared");
         this.title = (String) data.get("title");
         this.content = (String) data.get("content");
-        this.remindWhen = (String) data.get("remindWhen");
+        this.remindWhen = (Timestamp) data.get("remindWhen");
         this.category = (String) data.get("category");
     }
 
@@ -124,7 +126,7 @@ public class Task implements Parcelable {
         dest.writeInt(this.shared ? 1 : 0);
         dest.writeString(this.title);
         dest.writeString(this.content);
-        dest.writeString(this.remindWhen);
+        dest.writeParcelable(this.remindWhen, 0);
         dest.writeString(this.category);
     }
 
@@ -133,5 +135,18 @@ public class Task implements Parcelable {
     public String toString() {
         Gson gson = new Gson();
         return gson.toJson(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(id, task.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -13,5 +13,7 @@ public class AppConstant {
     public static final String EXTRA_MODE = "mode";
     public static final String EXTRA_TASK = "task";
 
-    public static final String[] CATEGORIES = {"Activity", "Shopping"};
+    public static final String CATEGORY_ACTIVITY = "Activity";
+    public static final String CATEGORY_SHOPPING = "Shopping";
+    public static final String[] CATEGORIES = {CATEGORY_ACTIVITY, CATEGORY_SHOPPING};
 }
