@@ -1,6 +1,7 @@
 package com.example.procrastinator.worker;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -37,8 +38,14 @@ public class WatchDogWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.d("WatchDogWorker", "doWork");
-        DatabaseUtil.getTasksSendReminders(getApplicationContext(), db);
+        Context context = getApplicationContext();
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
+            Log.d("WatchDogWorker", "doWork");
+            DatabaseUtil.getTasksSendReminders(context, db);
+        } else {
+            Log.d("WatchDogWorker", "Not connected");
+        }
         return Result.success();
     }
 }

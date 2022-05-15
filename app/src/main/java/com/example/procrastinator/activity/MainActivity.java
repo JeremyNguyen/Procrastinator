@@ -2,6 +2,7 @@ package com.example.procrastinator.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.procrastinator.R;
@@ -27,11 +28,18 @@ public class MainActivity extends BaseActivity {
         });
 
         init();
+
+        if (mode.equals(AppConstant.MODE_REMIND)) {
+            View viewEdit = findViewById(R.id.view_edit);
+            viewEdit.setVisibility(View.GONE);
+            View viewRemind = findViewById(R.id.view_remind);
+            viewRemind.setVisibility(View.VISIBLE);
+        }
     }
 
     private void init(){
         Intent intent = getIntent();
         task = (Task) Optional.ofNullable(intent.getParcelableExtra(AppConstant.EXTRA_TASK)).orElse(new Task());
-        mode = (String) Optional.ofNullable(intent.getParcelableExtra(AppConstant.EXTRA_MODE)).orElse(AppConstant.MODE_EDIT);
+        mode = Optional.ofNullable(intent.getStringExtra(AppConstant.EXTRA_MODE)).orElse(AppConstant.MODE_EDIT);
     }
 }
