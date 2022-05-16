@@ -9,6 +9,7 @@ public class AppConstant {
 
     public static final String MODE_REMIND = "remind";
     public static final String MODE_EDIT = "edit";
+    public static final String MODE_CREATE = "create";
 
     public static final String EXTRA_MODE = "mode";
     public static final String EXTRA_TASK = "task";

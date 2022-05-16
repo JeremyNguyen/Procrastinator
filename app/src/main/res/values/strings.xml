@@ -7,4 +7,5 @@
     <string name="menuItemSetUser">Configure user</string>
     <string name="dialogSetUserTitle">Set user name</string>
     <string name="dialogSetUserInput">Jeremy or Noemie</string>
+    <string name="taskLabelTitle">Title</string>
 </resources>
