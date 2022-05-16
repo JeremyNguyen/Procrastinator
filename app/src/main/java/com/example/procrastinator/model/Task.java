@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import java.util.Map;
 import java.util.Objects;
 
-public class Task implements Parcelable {
+public class Task implements Parcelable, Comparable<Task> {
 
     private String id;
     private String author;
@@ -148,5 +148,10 @@ public class Task implements Parcelable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return remindWhen.compareTo(o.remindWhen);
     }
 }

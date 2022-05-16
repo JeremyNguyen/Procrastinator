@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class DatabaseUtil {
 
@@ -78,7 +79,7 @@ public class DatabaseUtil {
 
     private static void populateTasks(List<Task> tasks, com.google.android.gms.tasks.Task<List<Object>> queries) {
         if (queries.isSuccessful()) {
-            Set<Task> set = new HashSet<>();
+            Set<Task> set = new TreeSet<>();
             for (Object o : Objects.requireNonNull(queries.getResult())) {
                 QuerySnapshot query = (QuerySnapshot) o;
                 for (DocumentSnapshot document : query.getDocuments()) {
