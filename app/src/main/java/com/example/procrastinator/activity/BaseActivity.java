@@ -15,9 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.procrastinator.R;
 import com.example.procrastinator.constant.AppConstant;
-import com.example.procrastinator.model.Task;
 import com.example.procrastinator.util.DatabaseUtil;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class BaseActivity extends AppCompatActivity {
@@ -37,11 +35,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (R.id.debug1 == item.getItemId()) {
-            debug1();
-        }
-        if (R.id.debug2 == item.getItemId()) {
-            debug2();
+        if (R.id.debug == item.getItemId()) {
+            debug();
         }
         if (R.id.viewTasks == item.getItemId()) {
             Intent intent = new Intent(this, ListTasksActivity.class);
@@ -78,19 +73,7 @@ public class BaseActivity extends AppCompatActivity {
         return (super.onOptionsItemSelected(item));
     }
 
-    public void debug1() {
-        Toast.makeText(this, "debug1", Toast.LENGTH_SHORT).show();
-        Task task = new Task();
-        task.setContent("content");
-        task.setTitle("title");
-        task.setAuthor("author");
-        task.setCategory("Shopping");
-        task.setRemindWhen(Timestamp.now());
-        task.setShared(true);
-        DatabaseUtil.addTask(task, db);
-    }
-
-    public void debug2() {
+    public void debug() {
         DatabaseUtil.getTasksSendReminders(getApplicationContext(), db);
     }
 }
