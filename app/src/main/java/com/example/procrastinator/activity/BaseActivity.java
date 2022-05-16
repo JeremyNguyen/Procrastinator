@@ -43,6 +43,10 @@ public class BaseActivity extends AppCompatActivity {
         if (R.id.debug2 == item.getItemId()) {
             debug2();
         }
+        if (R.id.viewTasks == item.getItemId()) {
+            Intent intent = new Intent(this, ListTasksActivity.class);
+            startActivity(intent);
+        }
         if (R.id.setUser == item.getItemId()) {
             LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
             View mView = layoutInflaterAndroid.inflate(R.layout.dialog_set_user, null);

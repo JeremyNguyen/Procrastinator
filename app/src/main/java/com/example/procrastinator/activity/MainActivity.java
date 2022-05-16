@@ -4,12 +4,16 @@ import static com.example.procrastinator.constant.AppConstant.MODE_CREATE;
 import static com.example.procrastinator.constant.AppConstant.MODE_EDIT;
 import static com.example.procrastinator.constant.AppConstant.MODE_REMIND;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.procrastinator.R;
 import com.example.procrastinator.constant.AppConstant;
@@ -21,6 +25,7 @@ public class MainActivity extends BaseActivity {
 
     String mode;
     Task task;
+    boolean showDatePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +35,6 @@ public class MainActivity extends BaseActivity {
         init();
         setTitle();
         setTaskTitle();
-
-        setViewTasksButton();
 
         if (mode.equals(MODE_REMIND)) {
             View viewEdit = findViewById(R.id.view_edit);
@@ -67,14 +70,35 @@ public class MainActivity extends BaseActivity {
         if (MODE_EDIT.equals(mode)) {
             EditText editText = findViewById(R.id.mainTaskTitle);
             editText.setText(task.getTitle());
+        } else {
+            TextView textView = findViewById(R.id.mainTaskTitleText);
+            textView.setText(task.getTitle());
         }
     }
 
-    public void setViewTasksButton() {
-        Button buttonListTask = findViewById(R.id.button_list_tasks);
-        buttonListTask.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ListTasksActivity.class);
-            startActivity(intent);
-        });
+    public void onRadioButtonClicked(View view) {
+        showDatePicker = ((RadioButton) view).isChecked() && view.getId() == R.id.mainRadioDatePicker;
+        LinearLayout layoutButtons = findViewById(R.id.mainLayoutButtons);
+        LinearLayout layoutDatePicker = findViewById(R.id.mainLayoutDatePicker);
+        if (showDatePicker) {
+            layoutButtons.setVisibility(View.GONE);
+            layoutDatePicker.setVisibility(View.VISIBLE);
+        } else {
+            layoutButtons.setVisibility(View.VISIBLE);
+            layoutDatePicker.setVisibility(View.GONE);
+        }
+    }
+
+    public void onRemindButtonClicked(View view) {
+        Button button = (Button) view;
+        Toast.makeText(getApplicationContext(), button.getText(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void onEditButtonClicked(View view) {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(AppConstant.EXTRA_TASK, task);
+        intent.putExtra(AppConstant.EXTRA_MODE, MODE_EDIT);
+        context.startActivity(intent);
     }
 }

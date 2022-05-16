@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="brown">#532906</color>
+
+    <color name="remind_delete">#9F1300</color>
+    <color name="remind_lvl_6">#f54a00</color>
+    <color name="remind_lvl_5">#f55a00</color>
+    <color name="remind_lvl_4">#f56a00</color>
+    <color name="remind_lvl_3">#f57600</color>
+    <color name="remind_lvl_2">#f58b00</color>
+    <color name="remind_lvl_1">#f59f00</color>
+
 </resources>
