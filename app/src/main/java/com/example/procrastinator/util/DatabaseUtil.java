@@ -1,5 +1,6 @@
 package com.example.procrastinator.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -25,12 +26,23 @@ public class DatabaseUtil {
     private static final String COLLECTION_TASKS = "tasks";
     private static final String TASKS_SHARED = "shared";
     private static final String TASKS_AUTHOR = "author";
+    private static final String TASKS_REMINDWHEN = "remindWhen";
 
     public static void addTask(Task task, FirebaseFirestore db) {
         db.collection(COLLECTION_TASKS)
                 .add(task)
                 .addOnSuccessListener(documentReference -> Log.d("DatabaseUtil", "Task added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w("DatabaseUtil", "Error adding document", e));
+    }
+
+    public static void updateTask(Task task, FirebaseFirestore db, Context context) {
+        db.collection(COLLECTION_TASKS)
+                .document(task.getId()).update(TASKS_REMINDWHEN, task.getRemindWhen())
+                .addOnSuccessListener(documentReference -> {
+                    Log.d("DatabaseUtil", "Updated task with ID: " + task.getId());
+                    ((Activity)context).finish();
+                })
+                .addOnFailureListener(e -> Log.w("DatabaseUtil", "Error updating document", e));
     }
 
     public static void getTasksSendReminders(Context context, FirebaseFirestore db) {

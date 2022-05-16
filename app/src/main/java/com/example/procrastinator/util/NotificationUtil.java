@@ -36,6 +36,7 @@ public class NotificationUtil {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(AppConstant.EXTRA_TASK, task);
         intent.putExtra(AppConstant.EXTRA_MODE, AppConstant.MODE_REMIND);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         PendingIntent pi = PendingIntent.getActivity(context, task.getId().hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         builder.setContentIntent(pi);
         notificationManager.notify(task.getId().hashCode(), builder.build());

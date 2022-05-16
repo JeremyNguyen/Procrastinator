@@ -22,7 +22,7 @@
     <LinearLayout
         android:id="@+id/view_remind"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/mainTitleText"
         android:orientation="vertical"
         android:visibility="gone">
@@ -55,7 +55,7 @@
                 android:text="@string/taskLabelSetRemind" />
         </RadioGroup>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/mainLayoutButtons"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -63,8 +63,9 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/mainLayoutButtons1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button
@@ -89,10 +90,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/mainLayoutButtons2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/mainLayoutButtons1">
                 <Button
                     android:id="@+id/taskButtonOneWeek"
                     android:layout_width="0dp"
@@ -115,10 +117,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/mainLayoutButtons3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/mainLayoutButtons2">
                 <Button
                     android:id="@+id/taskButtonSixMonths"
                     android:layout_width="0dp"
@@ -142,12 +145,14 @@
 
             <Button
                 android:id="@+id/mainButtonEdit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
                 android:onClick="onEditButtonClicked"
                 android:text="@string/labelEdit" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/mainLayoutDatePicker"
