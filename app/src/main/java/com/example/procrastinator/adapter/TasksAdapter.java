@@ -37,6 +37,7 @@ public class TasksAdapter extends ArrayAdapter<Task> {
             Intent intent = new Intent(context, MainActivity.class);
             intent.putExtra(AppConstant.EXTRA_TASK, task);
             intent.putExtra(AppConstant.EXTRA_MODE, AppConstant.MODE_EDIT);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             context.startActivity(intent);
         });
         return convertView;

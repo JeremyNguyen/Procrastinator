@@ -17,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.example.procrastinator.R;
 import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
@@ -112,7 +114,16 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onDeleteButtonClicked(View view) {
-        // TODO
+        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(this);
+        alertDialogBuilderUserInput
+                .setCancelable(false)
+                .setTitle("Confirm task deletion")
+                .setPositiveButton("Confirm", (dialogBox, id) -> {
+                    DatabaseUtil.deleteTask(task, db, this);
+                })
+                .setNegativeButton("Cancel", (dialogBox, id) -> dialogBox.cancel());
+        AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+        alertDialogAndroid.show();
     }
 
     public void onConfirmButtonClicked(View view) {
@@ -138,7 +149,7 @@ public class MainActivity extends BaseActivity {
             if (MODE_CREATE.equals(mode)) {
                 DatabaseUtil.addTask(task, db, this);
             } else {
-                // TODO update set()
+                DatabaseUtil.updateTask(task, db, this);
             }
         }
     }

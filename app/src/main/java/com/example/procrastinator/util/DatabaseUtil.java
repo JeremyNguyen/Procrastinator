@@ -48,6 +48,32 @@ public class DatabaseUtil {
         }
     }
 
+    public static void updateTask(Task task, FirebaseFirestore db, Context context) {
+        String user = getUser(context);
+        if (user != null) {
+            db.collection(COLLECTION_TASKS).document(task.getId()).set(task)
+                    .addOnSuccessListener(unused -> {
+                        Log.d("DatabaseUtil", "Task updated with ID: " + task.getId());
+                        Toast.makeText(context, "Task updated", Toast.LENGTH_SHORT).show();
+                        ((Activity) context).finish();
+                    })
+                    .addOnFailureListener(e -> Log.w("DatabaseUtil", "Error setting document", e));
+        }
+    }
+
+    public static void deleteTask(Task task, FirebaseFirestore db, Context context) {
+        String user = getUser(context);
+        if (user != null) {
+            db.collection(COLLECTION_TASKS).document(task.getId()).delete()
+                    .addOnSuccessListener(unused -> {
+                        Log.d("DatabaseUtil", "Task deleted with ID: " + task.getId());
+                        Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
+                        ((Activity) context).finish();
+                    })
+                    .addOnFailureListener(e -> Log.w("DatabaseUtil", "Error deleting document", e));
+        }
+    }
+
     public static void updateTaskRemind(Timestamp timestamp, String taskId, FirebaseFirestore db, Context context) {
         String user = getUser(context);
         if (user != null) {

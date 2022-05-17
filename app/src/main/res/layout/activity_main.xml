@@ -4,9 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -20,11 +18,9 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textAlignment="center"
-            android:textSize="25sp"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="25sp" />
 
         <LinearLayout
-            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mainTitleText"
@@ -212,7 +208,6 @@
             android:id="@+id/mainButtonDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/mainButtonConfirm"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             android:backgroundTint="@color/remind_delete"
@@ -224,11 +219,10 @@
             android:id="@+id/mainButtonConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mainLayout"
             android:layout_gravity="center_horizontal"
             android:onClick="onConfirmButtonClicked"
             android:text="@string/labelOk" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>
