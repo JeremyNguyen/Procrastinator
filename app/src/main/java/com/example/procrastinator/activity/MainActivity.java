@@ -5,14 +5,24 @@ import static com.example.procrastinator.constant.AppConstant.MODE_EDIT;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.procrastinator.R;
 import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
+import com.example.procrastinator.util.DatabaseUtil;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
@@ -21,10 +31,14 @@ import java.util.Optional;
 public class MainActivity extends BaseActivity {
 
     FirebaseFirestore db;
-    String mode;
+    String mode = MODE_CREATE;
     Task task;
-    Date date;
+    Timestamp timestamp;
     private final String[] categories = AppConstant.CATEGORIES;
+    EditText taskTitle, taskContent;
+    Button deleteButton;
+    Spinner categorySpinner;
+    SwitchMaterial switchMaterial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,7 @@ public class MainActivity extends BaseActivity {
 
         setTitle();
         setCategorySpinner();
+        setCalendarView();
         init();
     }
 
@@ -42,9 +57,15 @@ public class MainActivity extends BaseActivity {
         Intent intent = getIntent();
         task = (Task) Optional.ofNullable(intent.getParcelableExtra(AppConstant.EXTRA_TASK)).orElse(new Task());
         mode = Optional.ofNullable(intent.getStringExtra(AppConstant.EXTRA_MODE)).orElse(MODE_CREATE);
+        taskTitle = findViewById(R.id.mainTaskTitle);
+        taskContent = findViewById(R.id.mainTaskContent);
+        switchMaterial = findViewById(R.id.mainTaskShared);
+        deleteButton = findViewById(R.id.mainButtonDelete);
         if (MODE_EDIT.equals(mode)) {
-            EditText editText = findViewById(R.id.mainTaskTitle);
-            editText.setText(task.getTitle());
+            taskTitle.setText(task.getTitle());
+            taskContent.setText(task.getContent());
+            deleteButton.setVisibility(View.VISIBLE);
+            // TODO set other fields
         }
     }
 
@@ -57,10 +78,68 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private  void setCategorySpinner() {
-        Spinner categorySpinner = findViewById(R.id.mainTaskCategory);
+    private void setCategorySpinner() {
+        categorySpinner = findViewById(R.id.mainTaskCategory);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(arrayAdapter);
+    }
+
+    private void setCalendarView() {
+        CalendarView calendarView = findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            Date date = new Date(year - 1900, month, dayOfMonth);
+            timestamp = new Timestamp(date);
+        });
+    }
+
+    public void onRadioButtonClicked(View view) {
+        boolean showDatePicker = ((RadioButton) view).isChecked() && view.getId() == R.id.mainRadioDatePicker;
+        RelativeLayout layoutButtons = findViewById(R.id.mainLayoutButtons);
+        LinearLayout layoutDatePicker = findViewById(R.id.mainLayoutDatePicker);
+        if (showDatePicker) {
+            layoutButtons.setVisibility(View.GONE);
+            layoutDatePicker.setVisibility(View.VISIBLE);
+        } else {
+            layoutButtons.setVisibility(View.VISIBLE);
+            layoutDatePicker.setVisibility(View.GONE);
+        }
+    }
+
+    public void onRemindButtonClicked(View view) {
+        timestamp = DatabaseUtil.getTimestampForButton(view.getId());
+        Toast.makeText(this, "Remind me in " + ((Button) view).getText(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void onDeleteButtonClicked(View view) {
+        // TODO
+    }
+
+    public void onConfirmButtonClicked(View view) {
+        boolean hasErrors = false;
+        String title = taskTitle.getText().toString();
+        if (title.isEmpty()) {
+            Toast.makeText(this, R.string.taskTitleError, Toast.LENGTH_LONG).show();
+            hasErrors = true;
+        } else {
+            task.setTitle(title);
+        }
+        task.setContent(taskContent.getText().toString());
+        task.setCategory(categorySpinner.getSelectedItem().toString());
+        task.setShared(switchMaterial.isChecked());
+        if (timestamp == null) {
+            Toast.makeText(this, R.string.taskTimestampError, Toast.LENGTH_LONG).show();
+            hasErrors = true;
+        } else {
+            task.setRemindJeremy(timestamp);
+            task.setRemindNoemie(timestamp);
+        }
+        if (!hasErrors) {
+            if (MODE_CREATE.equals(mode)) {
+                DatabaseUtil.addTask(task, db, this);
+            } else {
+                // TODO update set()
+            }
+        }
     }
 }

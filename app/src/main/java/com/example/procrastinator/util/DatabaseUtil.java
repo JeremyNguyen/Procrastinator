@@ -7,8 +7,9 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.procrastinator.R;
 import com.example.procrastinator.constant.AppConstant;
-import com.example.procrastinator.listener.OnTaskSelectedListener;
+import com.example.procrastinator.listener.OnCategorySelectedListener;
 import com.example.procrastinator.model.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
@@ -17,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -32,13 +34,18 @@ public class DatabaseUtil {
     private static final String TASKS_REMIND_NOEMIE = "remindNoemie";
 
     public static void addTask(Task task, FirebaseFirestore db, Context context) {
-        db.collection(COLLECTION_TASKS)
-                .add(task)
-                .addOnSuccessListener(documentReference -> {
-                    Log.d("DatabaseUtil", "Task added with ID: " + documentReference.getId());
-                    Toast.makeText(context, "Task created", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> Log.w("DatabaseUtil", "Error adding document", e));
+        String user = getUser(context);
+        if (user != null) {
+            task.setAuthor(user);
+            db.collection(COLLECTION_TASKS)
+                    .add(task)
+                    .addOnSuccessListener(documentReference -> {
+                        Log.d("DatabaseUtil", "Task added with ID: " + documentReference.getId());
+                        Toast.makeText(context, "Task created", Toast.LENGTH_SHORT).show();
+                        ((Activity) context).finish();
+                    })
+                    .addOnFailureListener(e -> Log.w("DatabaseUtil", "Error adding document", e));
+        }
     }
 
     public static void updateTaskRemind(Timestamp timestamp, String taskId, FirebaseFirestore db, Context context) {
@@ -68,7 +75,7 @@ public class DatabaseUtil {
         }
     }
 
-    public static void getTasksUpdateAdapter(List<Task> tasks, OnTaskSelectedListener listener, FirebaseFirestore db) {
+    public static void getTasksUpdateAdapter(List<Task> tasks, OnCategorySelectedListener listener, FirebaseFirestore db) {
         String user = getUser(listener.getContext());
         if (user != null) {
             getQueryTasks(listener.getContext(), db)
@@ -166,5 +173,40 @@ public class DatabaseUtil {
             Toast.makeText(context, AppConstant.USER_NOT_SET, Toast.LENGTH_LONG).show();
         }
         return user;
+    }
+
+    public static Timestamp getFormattedTimestamp(long millis) {
+        Date date = new Date(millis);
+        date.setHours(8);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        return new Timestamp(date);
+    }
+
+    public static Timestamp getTimestampForButton(int id) {
+        long seconds = Timestamp.now().getSeconds();
+        long deltaInDays = 0;
+        switch (id) {
+            case R.id.taskButtonOneDay:
+                deltaInDays = 1;
+                break;
+            case R.id.taskButtonThreeDays:
+                deltaInDays = 3;
+                break;
+            case R.id.taskButtonOneWeek:
+                deltaInDays = 7;
+                break;
+            case R.id.taskButtonOneMonth:
+                deltaInDays = 30;
+                break;
+            case R.id.taskButtonSixMonths:
+                deltaInDays = 180;
+                break;
+            case R.id.taskButtonOneYear:
+                deltaInDays = 365;
+                break;
+        }
+        long millis = (seconds + (deltaInDays * 24 * 3600)) * 1000;
+        return getFormattedTimestamp(millis);
     }
 }

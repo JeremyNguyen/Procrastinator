@@ -62,9 +62,9 @@ public class RemindActivity extends BaseActivity {
     public void onRemindButtonClicked(View view) {
         Timestamp timestamp;
         if (view.getId() == R.id.mainDatePickerConfirm) {
-            timestamp = getFormattedTimestamp(date.getTime());
+            timestamp = DatabaseUtil.getFormattedTimestamp(date.getTime());
         } else {
-            timestamp = getTimestampForButton(view.getId());
+            timestamp = DatabaseUtil.getTimestampForButton(view.getId());
         }
         DatabaseUtil.updateTaskRemind(timestamp, task.getId(), db, this);
     }
@@ -76,40 +76,5 @@ public class RemindActivity extends BaseActivity {
         intent.putExtra(AppConstant.EXTRA_MODE, MODE_EDIT);
         context.startActivity(intent);
         finish();
-    }
-
-    private Timestamp getTimestampForButton(int id) {
-        long seconds = Timestamp.now().getSeconds();
-        long deltaInDays = 0;
-        switch (id) {
-            case R.id.taskButtonOneDay:
-                deltaInDays = 1;
-                break;
-            case R.id.taskButtonThreeDays:
-                deltaInDays = 3;
-                break;
-            case R.id.taskButtonOneWeek:
-                deltaInDays = 7;
-                break;
-            case R.id.taskButtonOneMonth:
-                deltaInDays = 30;
-                break;
-            case R.id.taskButtonSixMonths:
-                deltaInDays = 180;
-                break;
-            case R.id.taskButtonOneYear:
-                deltaInDays = 365;
-                break;
-        }
-        long millis = (seconds + (deltaInDays * 24 * 3600)) * 1000;
-        return getFormattedTimestamp(millis);
-    }
-
-    private Timestamp getFormattedTimestamp(long millis) {
-        Date date = new Date(millis);
-        date.setHours(8);
-        date.setMinutes(0);
-        date.setSeconds(0);
-        return new Timestamp(date);
     }
 }

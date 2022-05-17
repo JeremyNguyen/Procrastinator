@@ -23,4 +23,7 @@
     <string name="titleTaskAdd">Add new task</string>
     <string name="titleTaskEdit">Edit task</string>
     <string name="titleTaskRemind">Reminder</string>
+    <string name="labelDelete">Delete</string>
+    <string name="taskTitleError">Title cannot be empty</string>
+    <string name="taskTimestampError">Date cannot be empty</string>
 </resources>

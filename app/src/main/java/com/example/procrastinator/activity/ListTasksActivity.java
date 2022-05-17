@@ -8,7 +8,7 @@ import android.widget.Spinner;
 import com.example.procrastinator.R;
 import com.example.procrastinator.adapter.TasksAdapter;
 import com.example.procrastinator.constant.AppConstant;
-import com.example.procrastinator.listener.OnTaskSelectedListener;
+import com.example.procrastinator.listener.OnCategorySelectedListener;
 import com.example.procrastinator.model.Task;
 import com.example.procrastinator.util.DatabaseUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,7 +35,7 @@ public class ListTasksActivity extends BaseActivity {
         listView.setAdapter(tasksAdapter);
 
         Spinner categorySpinner = findViewById(R.id.category_spinner);
-        OnTaskSelectedListener listener = new OnTaskSelectedListener(tasks, tasksAdapter, categories, this);
+        OnCategorySelectedListener listener = new OnCategorySelectedListener(tasks, tasksAdapter, categories, this);
         categorySpinner.setOnItemSelectedListener(listener);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

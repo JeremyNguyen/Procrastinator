@@ -10,14 +10,14 @@ import com.example.procrastinator.model.Task;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OnTaskSelectedListener implements AdapterView.OnItemSelectedListener {
+public class OnCategorySelectedListener implements AdapterView.OnItemSelectedListener {
 
     private final List<Task> tasks;
     private final TasksAdapter adapter;
     private final String[] categories;
     private final Context context;
 
-    public OnTaskSelectedListener(List<Task> tasks, TasksAdapter adapter, String[] categories, Context context) {
+    public OnCategorySelectedListener(List<Task> tasks, TasksAdapter adapter, String[] categories, Context context) {
         this.tasks = tasks;
         this.adapter = adapter;
         this.categories = categories;
