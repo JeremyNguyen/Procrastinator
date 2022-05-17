@@ -12,6 +12,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.procrastinator.R;
@@ -91,7 +92,7 @@ public class MainActivity extends BaseActivity {
 
     public void onRadioButtonClicked(View view) {
         boolean showDatePicker = ((RadioButton) view).isChecked() && view.getId() == R.id.mainRadioDatePicker;
-        LinearLayout layoutButtons = findViewById(R.id.mainLayoutButtons);
+        RelativeLayout layoutButtons = findViewById(R.id.mainLayoutButtons);
         LinearLayout layoutDatePicker = findViewById(R.id.mainLayoutDatePicker);
         if (showDatePicker) {
             layoutButtons.setVisibility(View.GONE);
@@ -109,8 +110,7 @@ public class MainActivity extends BaseActivity {
         } else {
             timestamp = getTimestampForButton(view.getId());
         }
-        task.setRemindWhen(timestamp);
-        DatabaseUtil.updateTask(task, db, this);
+        DatabaseUtil.updateTaskRemind(timestamp, task.getId(), db, this);
     }
 
     public void onEditButtonClicked(View view) {
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity {
     private Timestamp getTimestampForButton(int id) {
         long seconds = Timestamp.now().getSeconds();
         long deltaInDays = 0;
-        switch(id) {
+        switch (id) {
             case R.id.taskButtonOneDay:
                 deltaInDays = 1;
                 break;

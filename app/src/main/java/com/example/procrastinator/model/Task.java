@@ -12,14 +12,15 @@ import com.google.gson.Gson;
 import java.util.Map;
 import java.util.Objects;
 
-public class Task implements Parcelable, Comparable<Task> {
+public class Task implements Parcelable {
 
     private String id;
     private String author;
     private boolean shared;
     private String title;
     private String content;
-    private Timestamp remindWhen;
+    private Timestamp remindJeremy;
+    private Timestamp remindNoemie;
     private String category;
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
@@ -74,12 +75,20 @@ public class Task implements Parcelable, Comparable<Task> {
         this.content = content;
     }
 
-    public Timestamp getRemindWhen() {
-        return remindWhen;
+    public Timestamp getRemindJeremy() {
+        return remindJeremy;
     }
 
-    public void setRemindWhen(Timestamp remindWhen) {
-        this.remindWhen = remindWhen;
+    public void setRemindJeremy(Timestamp remindJeremy) {
+        this.remindJeremy = remindJeremy;
+    }
+
+    public Timestamp getRemindNoemie() {
+        return remindNoemie;
+    }
+
+    public void setRemindNoemie(Timestamp remindNoemie) {
+        this.remindNoemie = remindNoemie;
     }
 
     public String getCategory() {
@@ -104,7 +113,8 @@ public class Task implements Parcelable, Comparable<Task> {
         this.shared = in.readInt() == 1;
         this.title = in.readString();
         this.content = in.readString();
-        this.remindWhen = in.readParcelable(Timestamp.class.getClassLoader());
+        this.remindJeremy = in.readParcelable(Timestamp.class.getClassLoader());
+        this.remindNoemie = in.readParcelable(Timestamp.class.getClassLoader());
         this.category = in.readString();
     }
 
@@ -115,7 +125,8 @@ public class Task implements Parcelable, Comparable<Task> {
         this.shared = (boolean) data.get("shared");
         this.title = (String) data.get("title");
         this.content = (String) data.get("content");
-        this.remindWhen = (Timestamp) data.get("remindWhen");
+        this.remindJeremy = (Timestamp) data.get("remindJeremy");
+        this.remindNoemie = (Timestamp) data.get("remindNoemie");
         this.category = (String) data.get("category");
     }
 
@@ -126,7 +137,8 @@ public class Task implements Parcelable, Comparable<Task> {
         dest.writeInt(this.shared ? 1 : 0);
         dest.writeString(this.title);
         dest.writeString(this.content);
-        dest.writeParcelable(this.remindWhen, 0);
+        dest.writeParcelable(this.remindJeremy, 0);
+        dest.writeParcelable(this.remindNoemie, 0);
         dest.writeString(this.category);
     }
 
@@ -148,10 +160,5 @@ public class Task implements Parcelable, Comparable<Task> {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public int compareTo(Task o) {
-        return remindWhen.compareTo(o.remindWhen);
     }
 }

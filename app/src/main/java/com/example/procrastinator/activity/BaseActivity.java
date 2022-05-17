@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity {
                     .setCancelable(false)
                     .setPositiveButton("Confirm", (dialogBox, id) -> {
                         String input = editText.getText().toString();
-                        if ("Jeremy".equals(input) || "Noemie".equals(input)) {
+                        if (AppConstant.USER_JEREMY.equals(input) || AppConstant.USER_NOEMIE.equals(input)) {
                             SharedPreferences settings = getSharedPreferences(AppConstant.PREFERENCES_NAME, 0);
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString(AppConstant.PREFERENCE_USER, input);

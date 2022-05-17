@@ -3,6 +3,9 @@ package com.example.procrastinator.constant;
 public class AppConstant {
     public static final String PREFERENCES_NAME = "settings";
     public static final String PREFERENCE_USER = "User";
+    public static final String USER_JEREMY = "Jeremy";
+    public static final String USER_NOEMIE = "Noemie";
+    public static final String USER_NOT_SET = "Username not set";
 
     public static final String CHANNEL_REMINDER = "Reminder";
     public static final String CHANNEL_MESSAGE = "Message";
