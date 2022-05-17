@@ -7,6 +7,9 @@
     <string name="dialogSetUserTitle">Set user name</string>
     <string name="dialogSetUserInput">Jeremy or Noemie</string>
     <string name="taskLabelTitle">Title :</string>
+    <string name="taskLabelContent">Content :</string>
+    <string name="taskLabelCategory">Category :</string>
+    <string name="taskLabelShared">Shared :</string>
     <string name="taskLabelRemindIn">Remind me in</string>
     <string name="taskLabelSetRemind">Pick a date</string>
     <string name="labelTaskButtonOneDay">1 day</string>
@@ -17,4 +20,7 @@
     <string name="labelTaskButtonOneYear">1 year</string>
     <string name="labelOk">OK</string>
     <string name="labelEdit">Edit</string>
+    <string name="titleTaskAdd">Add new task</string>
+    <string name="titleTaskEdit">Edit task</string>
+    <string name="titleTaskRemind">Reminder</string>
 </resources>

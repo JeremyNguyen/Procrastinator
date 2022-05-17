@@ -9,7 +9,7 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 
 import com.example.procrastinator.R;
-import com.example.procrastinator.activity.MainActivity;
+import com.example.procrastinator.activity.RemindActivity;
 import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
 
@@ -33,9 +33,8 @@ public class NotificationUtil {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(task.getTitle())
                 .setAutoCancel(true);
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, RemindActivity.class);
         intent.putExtra(AppConstant.EXTRA_TASK, task);
-        intent.putExtra(AppConstant.EXTRA_MODE, AppConstant.MODE_REMIND);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         PendingIntent pi = PendingIntent.getActivity(context, task.getId().hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         builder.setContentIntent(pi);

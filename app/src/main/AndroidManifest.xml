@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Procrastinator">
         <activity
+            android:name=".activity.RemindActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.BaseActivity"
             android:exported="false" />
         <activity

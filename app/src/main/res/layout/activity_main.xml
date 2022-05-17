@@ -20,164 +20,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/view_remind"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/mainTitleText"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/mainTaskTitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checkedButton="@+id/mainRadioRemindIn"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/mainRadioRemindIn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/taskLabelRemindIn" />
-
-            <RadioButton
-                android:id="@+id/mainRadioDatePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/taskLabelSetRemind" />
-        </RadioGroup>
-
-        <RelativeLayout
-            android:id="@+id/mainLayoutButtons"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/mainLayoutButtons1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/taskButtonOneDay"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/remind_lvl_1"
-                    android:onClick="onRemindButtonClicked"
-                    android:text="@string/labelTaskButtonOneDay" />
-
-                <Button
-                    android:id="@+id/taskButtonThreeDays"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/remind_lvl_2"
-                    android:onClick="onRemindButtonClicked"
-                    android:text="@string/labelTaskButtonThreeDays" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mainLayoutButtons2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/mainLayoutButtons1">
-                <Button
-                    android:id="@+id/taskButtonOneWeek"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/remind_lvl_3"
-                    android:onClick="onRemindButtonClicked"
-                    android:text="@string/labelTaskButtonOneWeek" />
-
-                <Button
-                    android:id="@+id/taskButtonOneMonth"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/remind_lvl_4"
-                    android:onClick="onRemindButtonClicked"
-                    android:text="@string/labelTaskButtonOneMonth" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mainLayoutButtons3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/mainLayoutButtons2">
-                <Button
-                    android:id="@+id/taskButtonSixMonths"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/remind_lvl_5"
-                    android:onClick="onRemindButtonClicked"
-                    android:text="@string/labelTaskButtonSixMonths" />
-
-                <Button
-                    android:id="@+id/taskButtonOneYear"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/remind_lvl_6"
-                    android:onClick="onRemindButtonClicked"
-                    android:text="@string/labelTaskButtonOneYear" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/mainButtonEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:onClick="onEditButtonClicked"
-                android:text="@string/labelEdit" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/mainLayoutDatePicker"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/mainDatePickerConfirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onRemindButtonClicked"
-                android:text="@string/labelOk" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/view_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -195,6 +37,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/taskLabelContent"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/mainTaskContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/mainTaskCategory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/mainTaskShared"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/taskLabelShared" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
