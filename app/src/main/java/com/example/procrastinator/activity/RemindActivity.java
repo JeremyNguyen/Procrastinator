@@ -62,9 +62,9 @@ public class RemindActivity extends BaseActivity {
     public void onRemindButtonClicked(View view) {
         Timestamp timestamp;
         if (view.getId() == R.id.mainDatePickerConfirm) {
-            timestamp = DatabaseUtil.getFormattedTimestamp(date.getTime());
+            timestamp = DatabaseUtil.getFormattedTimestamp(date.getTime(), view.getContext());
         } else {
-            timestamp = DatabaseUtil.getTimestampForButton(view.getId());
+            timestamp = DatabaseUtil.getTimestampForButton(view);
         }
         DatabaseUtil.updateTaskRemind(timestamp, task.getId(), db, this);
     }

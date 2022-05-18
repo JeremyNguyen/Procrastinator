@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -202,18 +203,19 @@ public class DatabaseUtil {
         return user;
     }
 
-    public static Timestamp getFormattedTimestamp(long millis) {
+    public static Timestamp getFormattedTimestamp(long millis, Context context) {
+        String user = getUser(context);
         Date date = new Date(millis);
-        date.setHours(8);
+        date.setHours(AppConstant.USER_NOEMIE.equals(user) ? 8 : 20);
         date.setMinutes(0);
         date.setSeconds(0);
         return new Timestamp(date);
     }
 
-    public static Timestamp getTimestampForButton(int id) {
+    public static Timestamp getTimestampForButton(View view) {
         long seconds = Timestamp.now().getSeconds();
         long deltaInDays = 0;
-        switch (id) {
+        switch (view.getId()) {
             case R.id.taskButtonOneDay:
                 deltaInDays = 1;
                 break;
@@ -234,6 +236,6 @@ public class DatabaseUtil {
                 break;
         }
         long millis = (seconds + (deltaInDays * 24 * 3600)) * 1000;
-        return getFormattedTimestamp(millis);
+        return getFormattedTimestamp(millis, view.getContext());
     }
 }

@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onRemindButtonClicked(View view) {
-        timestamp = DatabaseUtil.getTimestampForButton(view.getId());
+        timestamp = DatabaseUtil.getTimestampForButton(view);
         Toast.makeText(this, "Remind me in " + ((Button) view).getText(), Toast.LENGTH_SHORT).show();
     }
 
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, R.string.taskTimestampError, Toast.LENGTH_LONG).show();
             hasErrors = true;
         } else {
-            if (task.isShared()) {
+            if (task.isShared() && MODE_CREATE.equals(mode)) {
                 task.setRemindJeremy(timestamp);
                 task.setRemindNoemie(timestamp);
             } else {
