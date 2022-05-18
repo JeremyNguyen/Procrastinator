@@ -27,6 +27,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 
@@ -66,8 +67,15 @@ public class MainActivity extends BaseActivity {
         if (MODE_EDIT.equals(mode)) {
             taskTitle.setText(task.getTitle());
             taskContent.setText(task.getContent());
+            switchMaterial.setChecked(task.isShared());
+            categorySpinner.setSelection(Arrays.asList(categories).indexOf(task.getCategory()));
+            String user = DatabaseUtil.getUser(this);
+            if (AppConstant.USER_NOEMIE.equals(user)) {
+                timestamp = task.getRemindNoemie();
+            } else {
+                timestamp = task.getRemindJeremy();
+            }
             deleteButton.setVisibility(View.VISIBLE);
-            // TODO set other fields
         }
     }
 
@@ -142,8 +150,17 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, R.string.taskTimestampError, Toast.LENGTH_LONG).show();
             hasErrors = true;
         } else {
-            task.setRemindJeremy(timestamp);
-            task.setRemindNoemie(timestamp);
+            if (task.isShared()) {
+                task.setRemindJeremy(timestamp);
+                task.setRemindNoemie(timestamp);
+            } else {
+                String user = DatabaseUtil.getUser(this);
+                if (AppConstant.USER_NOEMIE.equals(user)) {
+                    task.setRemindNoemie(timestamp);
+                } else {
+                    task.setRemindJeremy(timestamp);
+                }
+            }
         }
         if (!hasErrors) {
             if (MODE_CREATE.equals(mode)) {
