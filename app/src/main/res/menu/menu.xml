@@ -7,5 +7,6 @@
     <item android:id="@+id/export"
         android:title="@string/menuItemExport" />
     <item android:id="@+id/debug"
-        android:title="@string/labelButtonDebug"/>
+        android:title="@string/labelButtonDebug"
+        android:visible="false"/>
 </menu>

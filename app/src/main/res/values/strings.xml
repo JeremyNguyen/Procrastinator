@@ -26,4 +26,5 @@
     <string name="labelDelete">Delete</string>
     <string name="taskTitleError">Title cannot be empty</string>
     <string name="taskTimestampError">Date cannot be empty</string>
+    <string name="switchOnlyMine">Only mine :</string>
 </resources>
