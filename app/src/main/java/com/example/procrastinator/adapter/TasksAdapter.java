@@ -12,16 +12,23 @@ import com.example.procrastinator.R;
 import com.example.procrastinator.activity.MainActivity;
 import com.example.procrastinator.constant.AppConstant;
 import com.example.procrastinator.model.Task;
+import com.example.procrastinator.util.DatabaseUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TasksAdapter extends ArrayAdapter<Task> {
 
     private List<Task> tasks;
+    private final String user;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
     public TasksAdapter(Context context, List<Task> tasks) {
         super(context, 0, tasks);
         this.tasks = tasks;
+        this.user = DatabaseUtil.getUser(context);
     }
 
     @Override
@@ -31,9 +38,20 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
         }
-        TextView textView = convertView.findViewById(R.id.list_item_textView);
-        textView.setText(task.getTitle());
-        textView.setOnClickListener(v -> {
+        TextView taskTitle = convertView.findViewById(R.id.list_item_title);
+        taskTitle.setText(task.getTitle());
+        TextView taskRemind = convertView.findViewById(R.id.list_item_remind);
+        if (user != null) {
+            Date date;
+            if (AppConstant.USER_NOEMIE.equals(user)) {
+                date = task.getRemindNoemie().toDate();
+            } else {
+                date = task.getRemindJeremy().toDate();
+            }
+            taskRemind.setText(formatter.format(date));
+        }
+
+        convertView.setOnClickListener(v -> {
             Intent intent = new Intent(context, MainActivity.class);
             intent.putExtra(AppConstant.EXTRA_TASK, task);
             intent.putExtra(AppConstant.EXTRA_MODE, AppConstant.MODE_EDIT);

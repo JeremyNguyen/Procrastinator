@@ -38,8 +38,8 @@ public class ListTasksActivity extends BaseActivity {
         Spinner categorySpinner = findViewById(R.id.category_spinner);
         listener = new OnCategorySelectedListener(tasks, tasksAdapter, categories, this);
         categorySpinner.setOnItemSelectedListener(listener);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, categories);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         categorySpinner.setAdapter(arrayAdapter);
     }
 
