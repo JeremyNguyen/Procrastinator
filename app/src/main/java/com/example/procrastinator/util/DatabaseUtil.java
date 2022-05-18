@@ -157,6 +157,7 @@ public class DatabaseUtil {
                 }
             }
             List<Task> sortedList = set.stream().sorted(getTaskComparator(user)).collect(Collectors.toList());
+            tasks.clear();
             tasks.addAll(sortedList);
         } else {
             Log.w("DatabaseUtil", "Error getting documents", queries.getException());

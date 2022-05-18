@@ -22,6 +22,7 @@ public class ListTasksActivity extends BaseActivity {
     TasksAdapter tasksAdapter;
     private final List<Task> tasks = new ArrayList<>();
     private final String[] categories = AppConstant.CATEGORIES;
+    OnCategorySelectedListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +36,16 @@ public class ListTasksActivity extends BaseActivity {
         listView.setAdapter(tasksAdapter);
 
         Spinner categorySpinner = findViewById(R.id.category_spinner);
-        OnCategorySelectedListener listener = new OnCategorySelectedListener(tasks, tasksAdapter, categories, this);
+        listener = new OnCategorySelectedListener(tasks, tasksAdapter, categories, this);
         categorySpinner.setOnItemSelectedListener(listener);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(arrayAdapter);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         DatabaseUtil.getTasksUpdateAdapter(tasks, listener, db);
     }
 }

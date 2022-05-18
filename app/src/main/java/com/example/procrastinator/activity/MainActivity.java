@@ -50,10 +50,10 @@ public class MainActivity extends BaseActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        setTitle();
         setCategorySpinner();
-        setCalendarView();
         init();
+        setTitle();
+        setCalendarView();
     }
 
     private void init() {
