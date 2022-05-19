@@ -29,7 +29,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Optional;
 
 public class MainActivity extends BaseActivity {
 
@@ -58,8 +57,14 @@ public class MainActivity extends BaseActivity {
 
     private void init() {
         Intent intent = getIntent();
-        task = (Task) Optional.ofNullable(intent.getParcelableExtra(AppConstant.EXTRA_TASK)).orElse(new Task());
-        mode = Optional.ofNullable(intent.getStringExtra(AppConstant.EXTRA_MODE)).orElse(MODE_CREATE);
+        task = intent.getParcelableExtra(AppConstant.EXTRA_TASK);
+        if (task == null) {
+            task = new Task();
+        }
+        mode = intent.getStringExtra(AppConstant.EXTRA_MODE);
+        if (mode == null) {
+            mode = MODE_CREATE;
+        }
         taskTitle = findViewById(R.id.mainTaskTitle);
         taskContent = findViewById(R.id.mainTaskContent);
         switchMaterial = findViewById(R.id.mainTaskShared);

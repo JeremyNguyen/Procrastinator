@@ -34,6 +34,9 @@ public class RemindActivity extends BaseActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        Intent intent = getIntent();
+        task = intent.getParcelableExtra(AppConstant.EXTRA_TASK);
+
         TextView textView = findViewById(R.id.mainTaskTitleText);
         textView.setText(task.getTitle());
         setCalendarView();
@@ -74,6 +77,7 @@ public class RemindActivity extends BaseActivity {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(AppConstant.EXTRA_TASK, task);
         intent.putExtra(AppConstant.EXTRA_MODE, MODE_EDIT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
         finish();
     }

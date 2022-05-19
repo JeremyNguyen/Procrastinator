@@ -8,8 +8,9 @@ import com.example.procrastinator.adapter.TasksAdapter;
 import com.example.procrastinator.model.Task;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OnCategorySelectedListener implements AdapterView.OnItemSelectedListener {
 
@@ -29,9 +30,19 @@ public class OnCategorySelectedListener implements AdapterView.OnItemSelectedLis
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        List<Task> filteredTasks = tasks.stream().filter(task -> categories[position].equals(task.getCategory())).collect(Collectors.toList());
+        List<Task> filteredTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (categories[position].equals(task.getCategory())) {
+                filteredTasks.add(task);
+            }
+        }
         if (switchMaterial.isChecked()) {
-            filteredTasks = filteredTasks.stream().filter(task -> !task.isShared()).collect(Collectors.toList());
+            for (Iterator<Task> iterator = filteredTasks.iterator(); iterator.hasNext(); ) {
+                Task task = iterator.next();
+                if (task.isShared()) {
+                    iterator.remove();
+                }
+            }
         }
         adapter.setItems(filteredTasks);
         adapter.notifyDataSetChanged();
